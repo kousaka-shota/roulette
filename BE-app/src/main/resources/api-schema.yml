@@ -1,0 +1,224 @@
+openapi: "3.0.4"
+
+info:
+  title: "ルーレットのAPI"
+  version: "0.0.1"
+
+tags:
+  - name: theme
+    description: theme関連のAPI
+paths:
+  /theme/:
+    get:
+      description: "テーマを全件取得する"
+      operationId: GetAllTheme
+      tags:
+        - theme
+        - choice
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThemeListDTO"
+    post:
+      description: "テーマを新しく作成する"
+      operationId: createTheme
+      tags:
+        - theme
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ThemeForm"
+      responses:
+        "201":
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThemeDTO"
+        "400":
+          description: "不正なリクエスト"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BadRequestError"
+
+  /theme/{themeId}:
+    delete:
+      description: "指定したテーマを削除する"
+      operationId: deleteTheme
+      tags:
+        - theme
+      parameters:
+        - name: themeId
+          in: path
+          required: true
+          description: "削除するテーマID"
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: "Deleted"
+  /choiceList/{themeId}:
+    get:
+      description: "指定したテーマIDのチョイス一覧を取得する"
+      operationId: getChoiceList
+      tags:
+        - choice
+      parameters:
+        - name: themeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        "200":
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChoiceListDTO"
+    post:
+      description: "チョイスを登録する"
+      operationId: createChoiceList
+      tags:
+        - choice
+      parameters:
+        - name: themeId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChoiceListForm"
+      responses:
+        "201":
+          description: "Created ChoiceList"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChoiceListDTO"
+
+    put:
+      description: "チョイス一覧を更新する"
+      operationId: updateChoiceList
+      tags:
+        - choice
+      parameters:
+        - name: themeId
+          required: true
+          in: path
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChoiceListDTO"
+      responses:
+        "200":
+          description: "Updated ChoiceList"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ChoiceListDTO"
+
+components:
+  schemas:
+    ThemeListDTO:
+      description: "テーマの一覧"
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ThemeDTO"
+    ThemeDTO:
+      description: "テーマ一件の情報"
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        title:
+          type: string
+      required:
+        - id
+        - title
+    ThemeForm:
+      description: "テーマを新規作成する用"
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 256
+          minLength: 1
+      required:
+        - title
+    BadRequestError:
+      type: object
+      description: "リクエストが不正"
+      properties:
+        title:
+          type: string
+          description: "エラーのタイトル"
+          default: "Bad Request"
+        detail:
+          type: string
+          description: "エラーの詳細"
+          default: "リクエストが不正です"
+      required:
+        - title
+        - detail
+    ChoiceListDTO:
+      description: "チョイスの一覧DTO"
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChoiceDTO"
+      required:
+        - results
+    ChoiceDTO:
+      description: "チョイス一件のDTO"
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        choice:
+          type: string
+        themeId:
+          type: integer
+          format: int32
+      required:
+        - id
+        - choice
+        - themeId
+    ChoiceListForm:
+      description: "登録するチョイス一覧"
+      type: object
+      properties:
+        choiceList:
+          type: array
+          items:
+            $ref: "#/components/schemas/ChoiceForm"
+    ChoiceForm:
+      type: object
+      properties:
+        choice:
+          type: string

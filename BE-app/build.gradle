@@ -1,0 +1,95 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.4.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+    id 'org.openapi.generator' version '7.12.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(23)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation('org.springframework.boot:spring-boot-starter-web') {
+        exclude group: 'org.slf4j', module: 'slf4j-simple' // slf4j-simpleを除外
+    }
+    implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4') {
+        exclude group: 'org.slf4j', module: 'slf4j-simple' // slf4j-simpleを除外
+    }
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.h2database:h2'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.4'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	implementation 'org.yaml:snakeyaml:1.33'
+	
+	implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+	implementation "org.openapitools:jackson-databind-nullable:0.2.1"
+	implementation ('org.openapitools:openapi-generator:7.12.0'){
+        exclude group: 'org.slf4j', module: 'slf4j-simple' // slf4j-simpleを除外
+    }
+
+	implementation "io.swagger.core.v3:swagger-annotations:2.2.15"
+
+	implementation "org.springframework.boot:spring-boot-starter-validation"
+	
+    // JUnit Jupiter (JUnit 5)
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.3'
+    // Mockito
+    testImplementation 'org.mockito:mockito-core:5.5.0'
+    // AssertJ (アサーションを簡単にするために便利)
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+
+}
+
+openApiGenerate {
+    generatorName = 'html2' // 使用するジェネレーター名
+    inputSpec = "${projectDir}/src/main/resources/api-schema.yml" // OpenAPI仕様書のパス
+    outputDir = "${buildDir}/api-docs" // 生成されるドキュメントの出力先
+}
+
+openApiGenerate {
+	generatorName = "spring"
+	inputSpec = "${projectDir}/src/main/resources/api-schema.yml" // OpenAPI仕様書のパス
+    outputDir = "${buildDir}/spring" // 生成されるドキュメントの出力先
+	apiPackage = "com.example.roulette_api.controller"
+    modelPackage = "com.example.roulette_api.controller.model"
+    configOptions = [
+            interfaceOnly: "true",
+			useTags: "true",
+			useSpringBoot3: "true",
+			openApiNullable: "true"
+    ]
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("${buildDir}/spring/src/main/java")
+        }
+    }
+}
+
+// java compile時にbuildSpringServer taskを実行してから行うように依存関係をつくる
+tasks.named('compileJava') {
+    dependsOn tasks.named('openApiGenerate')
+}
+

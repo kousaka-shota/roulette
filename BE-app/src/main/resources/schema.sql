@@ -1,0 +1,12 @@
+CREATE TABLE theme(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(256) NOT NULL
+);
+
+CREATE TABLE luckyLoveLoveChoices(
+    id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    choice VARCHAR(256) NOT NULL,
+    theme_id INTEGER NOT NULL,
+    FOREIGN KEY (theme_id) REFERENCES theme(id) ON DELETE CASCADE
+);
+--ON DELETE CASCADEは紐づいたthemeが削除されるとChoicesのデータも削除されるようになる
