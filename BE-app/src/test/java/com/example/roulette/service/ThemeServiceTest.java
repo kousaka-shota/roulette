@@ -1,6 +1,8 @@
 package com.example.roulette.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -56,13 +58,13 @@ public class ThemeServiceTest {
     @DisplayName("テーマを新規作成")
     void testCreateTheme()throws Exception{
 
+        // 戻り値を持たないのでdoNothingを用いる
+        doNothing().when(themeRepo).insertTheme(any(ThemeRecord.class));
+
+        ThemeEntity entity = themeSer.createTheme("New Theme");
+
+        assertEquals(999, entity.getId());
+        assertEquals("New Theme", entity.getTitle());
+
     }
-
-    @Test
-    @DisplayName("指定したテーマIDのテーマを削除")
-    void testDeleteTheme()throws Exception{
-        
-    }
-
-
 }
