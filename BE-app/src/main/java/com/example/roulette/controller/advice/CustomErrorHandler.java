@@ -16,7 +16,6 @@ public class CustomErrorHandler {
         error.setTitle("Bad Request");
         error.setDetail("データベース制約違反です。");
         
-
         return ResponseEntity.badRequest().body(error);
     }
 }
