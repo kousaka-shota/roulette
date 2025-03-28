@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,7 +23,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.example.roulette.controller.choice.ChoiceController;
 import com.example.roulette.service.choice.ChoiceEntity;
 import com.example.roulette.service.choice.ChoiceService;
+import com.example.roulette_api.controller.model.ChoiceDTO;
 import com.example.roulette_api.controller.model.ChoiceForm;
+import com.example.roulette_api.controller.model.ChoiceListDTO;
 import com.example.roulette_api.controller.model.ChoiceListForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -94,7 +97,25 @@ public class ChoiceControllerTest {
 
     @Test
     @DisplayName("PUT /choiceList/{themeId}")
-    void testUpdateChoiceList(){
+    void testUpdateChoiceList() throws Exception{
+        List<ChoiceEntity> entities = Arrays.asList(
+            new ChoiceEntity(10,"Choice 10",5),
+            new ChoiceEntity(11,"Choice 11",5)
+        );
+        when(choiceService.updateChoiceList(eq(5), anyList())).thenReturn(entities);
 
+        ChoiceListDTO dto = new ChoiceListDTO(Arrays.asList(
+            new ChoiceDTO(10,"Choice 10",5),
+            new ChoiceDTO(11,"Choice 11",5)
+        ));
+        Integer themeId = 5;
+        mockMvc.perform(put("/choiceList/{themeId}",themeId)
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(objectMapper.writeValueAsString(dto)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.results.length()").value(2))
+        .andExpect(jsonPath("$.results[0].id").value(10))
+        .andExpect(jsonPath("$.results[0].choice").value("Choice 10"))
+        .andExpect(jsonPath("$.results[1].themeId").value(5));
     }
 }
