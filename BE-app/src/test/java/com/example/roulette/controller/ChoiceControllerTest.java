@@ -1,4 +1,4 @@
-package com.example.roulette.choice;
+package com.example.roulette.controller;
 
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.eq;

@@ -1,4 +1,4 @@
-package com.example.roulette.theme;
+package com.example.roulette.controller;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
