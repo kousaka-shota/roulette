@@ -28,6 +28,7 @@ public class ThemeServiceTest {
     @InjectMocks
     private ThemeService themeSer;
 
+    // テスト実行前にMockitoを初期化
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
