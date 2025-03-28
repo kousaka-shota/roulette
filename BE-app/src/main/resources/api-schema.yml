@@ -217,8 +217,12 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/ChoiceForm"
+      required:
+        - choiceList
     ChoiceForm:
       type: object
       properties:
         choice:
           type: string
+      required:
+        - choice
