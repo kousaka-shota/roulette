@@ -125,20 +125,21 @@ class ChoiceServiceTest {
         void testUpdateChoiceList(){
             Integer themeId = 1;
             
-            // prevのselectChoiceListの返り値の作成・セット
+            // prevのselectChoiceListの返り値の作成
             List<ChoiceRecord> prevRecords = Arrays.asList(
                 new ChoiceRecord(1, "Choice 1", themeId),
                 new ChoiceRecord(2, "Choice 2", themeId),
                 new ChoiceRecord(3, "Choice 3", themeId),
                 new ChoiceRecord(4, "Choice 4", themeId)
                 );
-            // 処理後のselectChoiceListの返り値の作成・セット
+            // 処理後のselectChoiceListの返り値の作成
             List<ChoiceRecord> expectedRecords = Arrays.asList(
                 new ChoiceRecord(1, "Choice 1 Updated", themeId),
                 new ChoiceRecord(2, "Choice 2", themeId),
                 new ChoiceRecord(4, "Choice 4", themeId),
                 new ChoiceRecord(5, "Choice 5 New", themeId)
                 );
+            // 二回呼び出してそれぞれ返り値が異なるため、二回分の返り値をセット
             when(choiceRepo.selectChoiceList(themeId)).thenReturn(prevRecords,expectedRecords);
             
             doNothing().when(choiceRepo).insertChoice(anyString(), anyInt());
