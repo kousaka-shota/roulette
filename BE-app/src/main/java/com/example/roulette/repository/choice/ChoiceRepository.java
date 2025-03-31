@@ -45,5 +45,7 @@ public interface ChoiceRepository {
     @Delete("DELETE FROM luckyLoveLoveChoices WHERE id = #{id}")
     void deleteChoice(Integer id);
 
+    @Delete("DELETE FROM luckyLoveLoveChoices")
+    void deleteAllChoice();
 
 }

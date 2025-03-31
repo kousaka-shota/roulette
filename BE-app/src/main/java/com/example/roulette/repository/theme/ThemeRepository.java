@@ -20,4 +20,7 @@ public interface ThemeRepository {
 
     @Delete("DELETE FROM theme WHERE id = #{themeId}")
     void deleteTheme(Integer themeId);
+
+    @Delete("DELETE FROM theme")
+    void deleteAllTheme();
 }
