@@ -1,4 +1,4 @@
-package com.example.roulette.service;
+package com.example.roulette.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
