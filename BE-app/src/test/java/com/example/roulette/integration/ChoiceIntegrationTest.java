@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.roulette_api.controller.model.ChoiceDTO;
 import com.example.roulette_api.controller.model.ChoiceForm;
@@ -21,6 +22,7 @@ import com.example.roulette_api.controller.model.ChoiceListForm;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class ChoiceIntegrationTest extends BaseIntegrationTest{
 
     @BeforeEach
