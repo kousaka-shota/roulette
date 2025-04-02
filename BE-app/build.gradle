@@ -88,3 +88,8 @@ tasks.named('compileJava') {
     dependsOn tasks.named('openApiGenerate')
 }
 
+// テストを実行するタスク
+tasks.named('test') {
+    useJUnitPlatform() // JUnit 5を使用する設定
+    include '**/integration/**', '**/unit/controller/**', '**/unit/service/**'
+}
