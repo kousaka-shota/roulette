@@ -39,7 +39,7 @@ public abstract class BaseIntegrationTest {
     protected ChoiceRepository choiceRepo;
 
     protected void clearDataBase() throws Exception{
-        themeRepo.deleteAllTheme();
+        themeRepo.deleteAll();
         choiceRepo.deleteAllChoice();
     }
 

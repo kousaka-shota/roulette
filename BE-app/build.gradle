@@ -25,13 +25,12 @@ repositories {
 }
 
 dependencies {
-	implementation('org.springframework.boot:spring-boot-starter-web') {
-        exclude group: 'org.slf4j', module: 'slf4j-simple' // slf4j-simpleを除外
-    }
-    implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4') {
-        exclude group: 'org.slf4j', module: 'slf4j-simple' // slf4j-simpleを除外
-    }
+	// jpa
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation('org.springframework.boot:spring-boot-starter-web') 
+    implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4') 
 	compileOnly 'org.projectlombok:lombok'
+
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -41,11 +40,7 @@ dependencies {
 	
 	implementation 'org.yaml:snakeyaml:1.33'
 	
-	implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
 	implementation "org.openapitools:jackson-databind-nullable:0.2.1"
-	implementation ('org.openapitools:openapi-generator:7.12.0'){
-        exclude group: 'org.slf4j', module: 'slf4j-simple' // slf4j-simpleを除外
-    }
 
 	implementation "io.swagger.core.v3:swagger-annotations:2.2.15"
 

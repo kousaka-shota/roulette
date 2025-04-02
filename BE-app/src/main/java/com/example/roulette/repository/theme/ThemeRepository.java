@@ -1,26 +1,12 @@
 package com.example.roulette.repository.theme;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import com.example.roulette.service.theme.ThemeEntity;
 
-@Mapper
-public interface ThemeRepository {
 
-    @Select("SELECT id, title FROM theme")
-    List<ThemeRecord> selectAllTheme();
+@Repository
+public interface ThemeRepository extends JpaRepository<ThemeEntity,Integer>{
 
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    @Insert("INSERT INTO theme (title) VALUES(#{title})")
-    void insertTheme(ThemeRecord record);
-
-    @Delete("DELETE FROM theme WHERE id = #{themeId}")
-    void deleteTheme(Integer themeId);
-
-    @Delete("DELETE FROM theme")
-    void deleteAllTheme();
 }

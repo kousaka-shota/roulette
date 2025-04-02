@@ -1,5 +1,6 @@
 package com.example.roulette.controller.theme;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +44,7 @@ public class ThemeController implements ThemeApi{
     public ResponseEntity<ThemeDTO> createTheme(@Valid @RequestBody ThemeForm form){
         ThemeEntity entity = themeService.createTheme(form.getTitle());
         ThemeDTO dto = new ThemeDTO(entity.getId(), entity.getTitle());
-        return ResponseEntity.created(null).body(dto);
+        return ResponseEntity.created(URI.create("/themes/" + dto.getId())).body(dto);
     }
 
     @Override
