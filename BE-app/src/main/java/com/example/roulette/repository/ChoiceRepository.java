@@ -1,11 +1,11 @@
-package com.example.roulette.repository.choice;
+package com.example.roulette.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.roulette.service.choice.ChoiceEntity;
+import com.example.roulette.entity.ChoiceEntity;
 
 @Repository
 public interface ChoiceRepository extends JpaRepository<ChoiceEntity, Integer> {

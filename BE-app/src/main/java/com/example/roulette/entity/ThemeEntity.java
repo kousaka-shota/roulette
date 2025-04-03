@@ -1,6 +1,5 @@
-package com.example.roulette.service.choice;
+package com.example.roulette.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,19 +9,18 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+// JPAのEntityとして使用するには以下のアノテーションが必要
 @Entity
-@Table(name = "luckyLoveLoveChoices")
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "theme")
 @Data
-public class ChoiceEntity {
+public class ThemeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
 
-    private String choice;
+    private String title;
 
-    @Column(name = "theme_id")
-    private Integer themeId;
 }

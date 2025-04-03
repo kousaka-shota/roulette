@@ -1,4 +1,4 @@
-package com.example.roulette.service.choice;
+package com.example.roulette.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.example.roulette.repository.choice.ChoiceRepository;
+import com.example.roulette.entity.ChoiceEntity;
+import com.example.roulette.repository.ChoiceRepository;
 import com.example.roulette_api.controller.model.ChoiceDTO;
 import com.example.roulette_api.controller.model.ChoiceForm;
 
