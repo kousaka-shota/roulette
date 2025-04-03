@@ -64,6 +64,12 @@ paths:
       responses:
         "200":
           description: "Deleted"
+        "404":
+          description: :"Theme Not Found"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ThemeNotFound"
   /choiceList/{themeId}:
     get:
       description: "指定したテーマIDのチョイス一覧を取得する"
@@ -226,3 +232,12 @@ components:
           type: string
       required:
         - choice
+    ThemeNotFound:
+      type: object
+      properties:
+        title:
+          type: string
+          default: "Bad Request"
+        message:
+          type: string
+          default: "Theme Not Found"
