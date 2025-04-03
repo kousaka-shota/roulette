@@ -16,10 +16,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "theme")
 @Data
 public class ThemeEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    String title;
+    private String title;
+
 }

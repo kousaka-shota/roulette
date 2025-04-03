@@ -15,12 +15,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.example.roulette.repository.theme.ThemeRecord;
 import com.example.roulette.repository.theme.ThemeRepository;
 import com.example.roulette.service.theme.ThemeEntity;
 import com.example.roulette.service.theme.ThemeService;
 
-public class ThemeServiceTest {    
+public class ThemeServiceTest {
 
     @Mock
     private ThemeRepository themeRepo;
@@ -36,16 +35,16 @@ public class ThemeServiceTest {
 
     @Test
     @DisplayName("テーマのリストを取得")
-    void testGetAllTheme()throws Exception{
-        List<ThemeRecord> records = Arrays.asList(
-            new ThemeRecord(1,"Theme 1"),
-            new ThemeRecord(2,"Theme 2"),
-            new ThemeRecord(3,"Theme 3"),
-            new ThemeRecord(4,"Theme 4"));
+    void testGetAllTheme() throws Exception {
+        List<ThemeEntity> entitiesRepo = Arrays.asList(
+                new ThemeEntity(1, "Theme 1"),
+                new ThemeEntity(2, "Theme 2"),
+                new ThemeEntity(3, "Theme 3"),
+                new ThemeEntity(4, "Theme 4"));
 
-        when(themeRepo.selectAllTheme()).thenReturn(records);
+        when(themeRepo.findAll()).thenReturn(entitiesRepo);
 
-        List<ThemeEntity> entities = themeSer.getAllTheme(); 
+        List<ThemeEntity> entities = themeSer.getAllTheme();
 
         assertEquals(4, entities.size());
         assertEquals(1, entities.get(0).getId());
@@ -57,10 +56,10 @@ public class ThemeServiceTest {
 
     @Test
     @DisplayName("テーマを新規作成")
-    void testCreateTheme()throws Exception{
+    void testCreateTheme() throws Exception {
 
         // 戻り値を持たないのでdoNothingを用いる
-        doNothing().when(themeRepo).insertTheme(any(ThemeRecord.class));
+        when(themeRepo.save(any(ThemeEntity.class))).thenReturn(new ThemeEntity(999, "New Theme"));
 
         ThemeEntity entity = themeSer.createTheme("New Theme");
 

@@ -88,8 +88,13 @@ tasks.named('compileJava') {
     dependsOn tasks.named('openApiGenerate')
 }
 
-// テストを実行するタスク
 tasks.named('test') {
     useJUnitPlatform() // JUnit 5を使用する設定
     include '**/integration/**', '**/unit/controller/**', '**/unit/service/**'
+
+    // テストの並行実行を無効化してシングルスレッドで実行
+    maxParallelForks = 1
+
+    // （オプション）テストごとに新しいフォークを使用しない設定
+    forkEvery = 0
 }

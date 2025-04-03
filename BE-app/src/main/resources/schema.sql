@@ -3,7 +3,7 @@ CREATE TABLE theme(
     title VARCHAR(256) NOT NULL
 );
 
-CREATE TABLE luckyLoveLoveChoices(
+CREATE TABLE lucky_love_love_Choices(
     id INTEGER NOT NULL PRIMARY KEY AUTO_INCREMENT,
     choice VARCHAR(256) NOT NULL,
     theme_id INTEGER NOT NULL,
