@@ -2,6 +2,7 @@ package com.example.roulette.service;
 
 import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,8 @@ public class UserService {
                 .builder()
                 .name(name)
                 .password(encodedPass)
-                .roles(Collections.singleton("ROLE_USER"))
+                .roles(Collections.singleton("USER"))
+                // .roles(Set.of("USER"))
                 // .roles(Collections.singleton("ROLE_ADMIN"))
                 .build();
         return userRepo.save(newUser);

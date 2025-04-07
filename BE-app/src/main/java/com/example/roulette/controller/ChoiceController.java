@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,12 +25,14 @@ public class ChoiceController implements ChoiceApi {
     private final ChoiceService choiceSer;
 
     @Override
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<ChoiceListDTO> getChoiceList(Integer themeId) {
         List<ChoiceEntity> entityList = choiceSer.selectChoiceList(themeId);
         return ResponseEntity.ok().body(toChoiceListDTO(entityList));
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<ChoiceListDTO> createChoiceList(
             Integer themeId,
             ChoiceListForm form) {
@@ -39,6 +42,7 @@ public class ChoiceController implements ChoiceApi {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<ChoiceListDTO> updateChoiceList(Integer themeId, ChoiceListDTO dto) {
         List<ChoiceEntity> entityList = choiceSer.updateChoiceList(themeId, dto.getResults());
         return ResponseEntity.ok().body(toChoiceListDTO(entityList));
