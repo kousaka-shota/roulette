@@ -16,13 +16,16 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.roulette.config.TestSecurityConfig;
 import com.example.roulette.controller.ChoiceController;
 import com.example.roulette.entity.ChoiceEntity;
 import com.example.roulette.service.ChoiceService;
+import com.example.roulette.util.JwtUtil;
 import com.example.roulette_api.controller.model.ChoiceDTO;
 import com.example.roulette_api.controller.model.ChoiceForm;
 import com.example.roulette_api.controller.model.ChoiceListDTO;
@@ -30,16 +33,20 @@ import com.example.roulette_api.controller.model.ChoiceListForm;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(ChoiceController.class)
+@Import(TestSecurityConfig.class)
 public class ChoiceControllerTest {
 
         @Autowired
         private MockMvc mockMvc;
 
-        @MockBean
+        @MockitoBean
         private ChoiceService choiceService;
 
         @Autowired
         private ObjectMapper objectMapper;
+
+        @MockitoBean
+        private JwtUtil jwtUtil;
 
         @Test
         @DisplayName("GET /choiceList/{themeId} ")

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +28,7 @@ public class ThemeController implements ThemeApi {
     private final ThemeService themeService;
 
     @Override
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<ThemeListDTO> getAllTheme() {
         List<ThemeEntity> themeListEntity = themeService.getAllTheme();
         ThemeListDTO dto = new ThemeListDTO();
@@ -40,6 +42,7 @@ public class ThemeController implements ThemeApi {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<ThemeDTO> createTheme(@Valid @RequestBody ThemeForm form) {
         ThemeEntity entity = themeService.createTheme(form.getTitle());
         ThemeDTO dto = new ThemeDTO(entity.getId(), entity.getTitle());
@@ -47,6 +50,7 @@ public class ThemeController implements ThemeApi {
     }
 
     @Override
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResponseEntity<Void> deleteTheme(Integer themeId) {
         themeService.deleteTheme(themeId);
         return ResponseEntity.ok().build();

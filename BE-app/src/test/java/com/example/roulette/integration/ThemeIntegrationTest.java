@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -22,6 +23,7 @@ public class ThemeIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    @WithMockUser(username = "testuser", roles = { "USER" })
     @DisplayName("テーマを削除する")
     void testDeleteTheme() throws Exception {
 
@@ -34,6 +36,7 @@ public class ThemeIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
+    @WithMockUser(username = "testuser", roles = { "USER" })
     @DisplayName("データを全件取得する")
     void testCreateTheme_GetAllTheme() throws Exception {
 

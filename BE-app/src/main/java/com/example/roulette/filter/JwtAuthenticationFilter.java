@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.example.roulette.util.JwtUtil;
 
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,23 +49,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 // roleを取得
                 @SuppressWarnings("unchecked")
-                Set<String> roles = claims.get("roles", Set.class);
-
+                List<String> rolesList = claims.get("roles", List.class);
+                Set<String> roles = new HashSet<>(rolesList);
+                // 追加: 抽出したロールをログ出力
+                logger.debug("Extracted roles from JWT: " + roles);
                 // usernameとroleを設定
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         username,
                         null,
-                        roles.stream().map(role -> "ROLE_" + role)
-                                .map(org.springframework.security.core.authority.SimpleGrantedAuthority::new)
+                        roles.stream()
+                                // .map(role -> "ROLE_" + role)
+                                // .map(org.springframework.security.core.authority.SimpleGrantedAuthority::new)
+                                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                                 .collect(Collectors.toList()));
                 // httpリクエストの詳細情報（セッションIDやクライアントのIPアドレス）をセット
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
+                logger.debug("Authenticated user: " + username + " with roles: " + authentication);
                 // application全体で認証情報を使えるようにする
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             } catch (JwtException e) {
+                logger.error("Invalid JWT token: " + e.getMessage());
+                response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid JWT token");
                 // トークンが無効の場合、認証情報をクリア
                 SecurityContextHolder.clearContext();
+                return;
             }
         }
 
