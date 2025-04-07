@@ -27,6 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
 
+    // 各APIに対するリクエストが来るとまずは以下の関数でトークンの認証が行われる
     @Override
     protected void doFilterInternal(HttpServletRequest request,
             HttpServletResponse response,
