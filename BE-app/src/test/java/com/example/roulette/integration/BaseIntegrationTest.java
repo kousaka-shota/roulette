@@ -7,10 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.example.roulette.repository.choice.ChoiceRepository;
-import com.example.roulette.repository.theme.ThemeRepository;
+import com.example.roulette.repository.ChoiceRepository;
+import com.example.roulette.repository.ThemeRepository;
 import com.example.roulette_api.controller.model.ThemeForm;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -20,9 +20,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.example.roulette.repository.choice.ChoiceRepository;
-import com.example.roulette.service.choice.ChoiceEntity;
-import com.example.roulette.service.choice.ChoiceService;
+import com.example.roulette.entity.ChoiceEntity;
+import com.example.roulette.repository.ChoiceRepository;
+import com.example.roulette.service.ChoiceService;
 import com.example.roulette_api.controller.model.ChoiceDTO;
 import com.example.roulette_api.controller.model.ChoiceForm;
 

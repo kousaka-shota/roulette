@@ -7,6 +7,10 @@ info:
 tags:
   - name: theme
     description: theme関連のAPI
+  - name: choice
+    description: choice関連のAPI
+  - name: auth
+    description: 認証関連のAPI
 paths:
   /theme/:
     get:
@@ -141,6 +145,43 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ChoiceListDTO"
+  /api/auth/login:
+    post:
+      tags:
+        - auth
+      operationId: login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequestBody"
+
+      responses:
+        "200":
+          description: "login success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponseBody"
+  /api/auth/register:
+    post:
+      tags:
+        - auth
+      operationId: register
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequestBody"
+      responses:
+        "201":
+          description: "user registered"
+          content:
+            application/json:
+              schema:
+                type: string
 
 components:
   schemas:
@@ -241,3 +282,20 @@ components:
         message:
           type: string
           default: "Theme Not Found"
+    AuthRequestBody:
+      type: object
+      properties:
+        name:
+          type: string
+        password:
+          type: string
+      required:
+        - name
+        - password
+    AuthResponseBody:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+        - token

@@ -2,7 +2,6 @@ package com.example.roulette.unit.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 import java.util.Arrays;
@@ -15,9 +14,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.example.roulette.repository.theme.ThemeRepository;
-import com.example.roulette.service.theme.ThemeEntity;
-import com.example.roulette.service.theme.ThemeService;
+import com.example.roulette.entity.ThemeEntity;
+import com.example.roulette.repository.ThemeRepository;
+import com.example.roulette.service.ThemeService;
 
 public class ThemeServiceTest {
 
