@@ -4,9 +4,9 @@ import {
   postChoiceListType,
 } from "@/api/choice/postChoiceList";
 import { postTheme } from "@/api/theme/postTheme";
-import { ThemeForm } from "@/components/ThemeForm";
-import { ChoiceListForm } from "@/components/ChoiceListForm";
-import { FormButtons } from "@/components/FormButtons";
+import { ThemeForm } from "@/components/Roulette/ThemeForm";
+import { ChoiceListForm } from "@/components/Roulette/ChoiceListForm";
+import { FormButtons } from "@/components/Roulette/FormButtons";
 import { NewFormValues } from "@/types/formValues";
 
 export const ThChNewForm = ({

@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.example.roulette.entity.UserEntity;
 import com.example.roulette.filter.JwtAuthenticationFilter;
 import com.example.roulette.service.UserService;
-import com.example.roulette.util.JwtUtil;
 
 @Configuration
 @EnableWebSecurity // spring securityの設定をOnにする
@@ -70,7 +69,6 @@ public class SecurityConfig {
                                                 org.springframework.security.config.http.SessionCreationPolicy.STATELESS))
                                 // JWTトークンを含むリクエストは必ずjwtAuthenticationFilterで処理されてから行われる（必ず認証が行われる）
                                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
                 return http.build();
         }
 }

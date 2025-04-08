@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Form, Select } from "antd";
-import { ThemeForm } from "@/components/ThemeForm";
-import { ChoiceListForm } from "@/components/ChoiceListForm";
+import { ThemeForm } from "@/components/Roulette/ThemeForm";
+import { ChoiceListForm } from "@/components/Roulette/ChoiceListForm";
 import {
   initialTheme,
   ThemeListType,
@@ -9,7 +9,7 @@ import {
 } from "@/types/theme/themeList";
 import { ChoiceListType, initialChoiceList } from "@/types/choice/choiceList";
 import { putChoiceList } from "@/api/choice/putChoiceList";
-import { FormButtons } from "@/components/FormButtons";
+import { FormButtons } from "@/components/Roulette/FormButtons";
 import {
   convertSelectOptions,
   generateEditedChoiceList,

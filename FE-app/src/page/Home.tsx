@@ -1,9 +1,9 @@
 import { Flex, Select } from "antd";
-import { RouletteComp } from "@/components/Roulette";
+import { RouletteComp } from "@/components/Roulette/Roulette";
 import { getThemeList } from "@/api/theme/getThemeList";
 import { useEffect, useState, CSSProperties } from "react";
 import { ThemeListType } from "@/types/theme/themeList";
-import { ThChModal } from "@/components/ThChModal";
+import { ThChModal } from "@/components/Roulette/ThChModal";
 
 export const Home = () => {
   const [themeList, setThemeList] = useState<ThemeListType>([]);

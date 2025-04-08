@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
 import { useState } from "react";
-import { ThChNewForm } from "@/components/ThChNewForm";
-import { ThChEditForm } from "./ThChEditForm";
+import { ThChNewForm } from "@/components/Roulette/ThChNewForm";
+import { ThChEditForm } from "@/components/Roulette/ThChEditForm";
 import { ThemeListType } from "@/types/theme/themeList";
 
 export const ThChModal = ({

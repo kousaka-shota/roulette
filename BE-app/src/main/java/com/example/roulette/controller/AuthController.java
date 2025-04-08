@@ -1,5 +1,6 @@
 package com.example.roulette.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.roulette.entity.UserEntity;
@@ -18,13 +19,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthController implements AuthApi {
 
     private final UserService userSer;
     private final AuthenticationManager authenticationManager;
     private final JwtUtil jwtUtil;
 
-    // @PostMapping("/register")
     public ResponseEntity<String> register(AuthRequestBody requestBody) {
         userSer.registerUser(requestBody.getName(), requestBody.getPassword());
         return ResponseEntity.ok("作成されました");
